@@ -31,12 +31,6 @@ public class ClientHandler implements Runnable
             if(databaseConnector.Connect())
             {
                 ClientFrameInstance clientFrameInstance = new ClientFrameInstance(datainputstream, dataoutputstream);
-               /* System.out.println("Done!");
-                dataoutputstream.writeUTF("What do you wanna do?");
-                dataoutputstream.writeUTF("1. Chat \n 2. Send files\n");
-                int numbcheck;
-                numbcheck = Integer.valueOf(datainputstream.readUTF());
-                System.out.println(databaseConnector.getUsername()+ "Has sent"+numbcheck);*/
 
             }
             else
@@ -48,8 +42,14 @@ public class ClientHandler implements Runnable
             e.printStackTrace();
             try {
                 client.close();
+                System.out.println("Client Closed");
+                Thread.currentThread().interrupt();
+                return;
             } catch (IOException ex) {
                 ex.printStackTrace();
+                System.out.println("Thread killed");
+                Thread.currentThread().interrupt();
+                return;
             }
         }
 

@@ -65,6 +65,10 @@ public class ClientFrameInstance{
 
         }
     }
+    public void fileTransferSelected()
+    {
+
+    }
     public ClientFrameInstance(DataInputStream dataInputStream, DataOutputStream dataOutputStream)
     {
         try {
@@ -88,6 +92,8 @@ public class ClientFrameInstance{
         } catch (IOException e) {
             //e.printStackTrace();
             System.out.println("Client Disconnected");
+            Thread.currentThread().interrupt();
+            return;
         }
 
     }
