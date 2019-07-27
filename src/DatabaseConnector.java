@@ -4,6 +4,15 @@ public class DatabaseConnector
     private String username;
     private String password;
     private boolean passwordMatched;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public DatabaseConnector(String username, String password)
     {
         this.username = username;
@@ -22,8 +31,10 @@ public class DatabaseConnector
                 String db_username = rs.getString(1);
 
                 String db_password = rs.getString(2);
-                if(username.equals(db_username) && password.equals(db_password))
+                if(username.equals(db_username) && password.equals(db_password)) {
                     passwordMatched = true;
+                    break;
+                }
                 else
                     passwordMatched = false;
                 //System.out.println(rs.getString(1)+"  "+rs.getString(2));
