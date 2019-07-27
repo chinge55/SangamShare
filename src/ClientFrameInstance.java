@@ -24,6 +24,8 @@ public class ClientFrameInstance{
         JTextField motto1 = new JTextField();
         //set size of the text box
         motto1.setBounds(50, 100, 200, 30);
+        JTextField motto2 = new JTextField();
+        motto2.setBounds(50, 70, 200, 30);
         //add elements to the frame
         JButton jButton = new JButton("Send TEXT");
         jButton.setBounds(50, 150, 100, 30);
@@ -33,6 +35,7 @@ public class ClientFrameInstance{
             public void actionPerformed(ActionEvent e) {
                 try {
                     dataOutputStream.writeUTF(motto1.getText());
+                    motto1.setText("");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     System.out.println("error in sending text");
@@ -42,6 +45,7 @@ public class ClientFrameInstance{
         });
         f.add(labelM);
         f.add(motto1);
+        f.add(motto2);
         f.setLayout(null);
         f.setVisible(true);
         while(true)
@@ -57,6 +61,7 @@ public class ClientFrameInstance{
                 break;
             else
                 System.out.println(DatabaseConnector.username+ ":"+inputString);
+                motto2.setText(inputString);
 
         }
     }
