@@ -1,7 +1,7 @@
 import java.sql.*;
 public class DatabaseConnector
 {
-    private String username;
+    public static String username = "Client not connected";
     private String password;
     private boolean passwordMatched;
 

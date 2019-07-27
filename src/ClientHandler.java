@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class ClientHandler implements Runnable
     {
 
         try {
+
             final DataInputStream datainputstream = new DataInputStream(client.getInputStream());
             final DataOutputStream dataoutputstream = new DataOutputStream(client.getOutputStream());
             dataoutputstream.writeUTF("Enter Your Username and password");
@@ -28,12 +30,13 @@ public class ClientHandler implements Runnable
             DatabaseConnector databaseConnector = new DatabaseConnector(username, password);
             if(databaseConnector.Connect())
             {
-                System.out.println("Done!");
+                ClientFrameInstance clientFrameInstance = new ClientFrameInstance(datainputstream, dataoutputstream);
+               /* System.out.println("Done!");
                 dataoutputstream.writeUTF("What do you wanna do?");
                 dataoutputstream.writeUTF("1. Chat \n 2. Send files\n");
                 int numbcheck;
                 numbcheck = Integer.valueOf(datainputstream.readUTF());
-                System.out.println(databaseConnector.getUsername()+ "Has sent"+numbcheck);
+                System.out.println(databaseConnector.getUsername()+ "Has sent"+numbcheck);*/
 
             }
             else
