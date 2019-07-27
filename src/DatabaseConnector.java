@@ -33,10 +33,13 @@ public class DatabaseConnector
                 String db_password = rs.getString(2);
                 if(username.equals(db_username) && password.equals(db_password)) {
                     passwordMatched = true;
+                    System.out.println(db_username+ " is connected!");
                     break;
                 }
-                else
+                else {
                     passwordMatched = false;
+
+                }
                 //System.out.println(rs.getString(1)+"  "+rs.getString(2));
             }
             con.close();

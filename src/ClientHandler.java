@@ -36,6 +36,10 @@ public class ClientHandler implements Runnable
             else
             {
                 System.out.println("Not done");
+                dataoutputstream.writeUTF("Ask your administrator for username and password");
+                Thread.currentThread().interrupt();
+                return;
+
             }
 
         } catch (IOException e) {

@@ -2,9 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class ClientFrameInstance{
     static JTextField textfield1, textfield2;
@@ -67,6 +65,50 @@ public class ClientFrameInstance{
     }
     public void fileTransferSelected()
     {
+        JFrame f = new JFrame(DatabaseConnector.username);
+        f.setSize(390, 300);
+        f.setLocation(100, 150);
+        //make sure it quits when x is clicked
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //set look and feel
+        f.setDefaultLookAndFeelDecorated(true);
+        JLabel labelM = new JLabel("File to Send to"+DatabaseConnector.username);
+        labelM.setBounds(50, 50, 200, 30);
+        JTextField motto1 = new JTextField();
+        //set size of the text box
+        motto1.setBounds(50, 100, 200, 30);
+        //add elements to the frame
+        JButton jButton = new JButton("Send File");
+        jButton.setBounds(50, 150, 100, 30);
+        f.add(jButton);
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try
+                {
+                    BufferedReader reader = new BufferedReader(new FileReader("D:\\Project\\src\\sendfile.txt"));
+                    String line;
+                    while ((line = reader.readLine()) != null)
+                    {
+                        dataOutputStream.writeUTF(line);
+                    }
+                    reader.close();
+                }
+                catch (Exception exc)
+                {
+                    System.err.format("Exception occurred trying to read file");
+                    exc.printStackTrace();
+
+                }
+
+
+            }
+        });
+        f.add(labelM);
+        f.add(motto1);
+        f.setLayout(null);
+        f.setVisible(true);
+
 
     }
     public ClientFrameInstance(DataInputStream dataInputStream, DataOutputStream dataOutputStream)
@@ -84,6 +126,7 @@ public class ClientFrameInstance{
                     chatSelected();
                     break;
                 case 2:
+                    fileTransferSelected();
                     break;
                 default:
 
