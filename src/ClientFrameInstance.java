@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -10,15 +9,7 @@ public class ClientFrameInstance{
     DataOutputStream dataOutputStream;
     public void chatSelected()
     {
-        JFrame f = new JFrame(DatabaseConnector.username);
-        f.setSize(390, 300);
-        f.setLocation(100, 150);
-        //make sure it quits when x is clicked
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //set look and feel
-        f.setDefaultLookAndFeelDecorated(true);
-        JLabel labelM = new JLabel("Message to Send to"+DatabaseConnector.username);
-        labelM.setBounds(50, 50, 200, 30);
+        JFrame f = makeWindow();
         JTextField motto1 = new JTextField();
         //set size of the text box
         motto1.setBounds(50, 100, 200, 30);
@@ -41,7 +32,7 @@ public class ClientFrameInstance{
 
             }
         });
-        f.add(labelM);
+       // f.add(labelM);
         f.add(motto1);
         f.add(motto2);
         f.setLayout(null);
@@ -63,7 +54,7 @@ public class ClientFrameInstance{
 
         }
     }
-    public void fileTransferSelected()
+    public JFrame makeWindow()
     {
         JFrame f = new JFrame(DatabaseConnector.username);
         f.setSize(390, 300);
@@ -74,6 +65,12 @@ public class ClientFrameInstance{
         f.setDefaultLookAndFeelDecorated(true);
         JLabel labelM = new JLabel("File to Send to"+DatabaseConnector.username);
         labelM.setBounds(50, 50, 200, 30);
+        f.add(labelM);
+        return f;
+    }
+    public void fileTransferSelected()
+    {
+        JFrame f = makeWindow();
         JTextField motto1 = new JTextField();
         //set size of the text box
         motto1.setBounds(50, 100, 200, 30);
@@ -86,7 +83,10 @@ public class ClientFrameInstance{
             public void actionPerformed(ActionEvent e) {
                 try
                 {
-                    BufferedReader reader = new BufferedReader(new FileReader("D:\\Project\\src\\sendfile.txt"));
+                    dataOutputStream.writeUTF("sendingafile");
+                    dataOutputStream.writeUTF("hello.png");
+                    BufferedReader reader = new BufferedReader(new FileReader("D:\\Project\\src\\hello.png"));
+                    //byte [] buffer = new byte[];
                     String line;
                     while ((line = reader.readLine()) != null)
                     {
@@ -104,7 +104,7 @@ public class ClientFrameInstance{
 
             }
         });
-        f.add(labelM);
+
         f.add(motto1);
         f.setLayout(null);
         f.setVisible(true);
