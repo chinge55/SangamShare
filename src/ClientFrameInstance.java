@@ -68,6 +68,22 @@ public class ClientFrameInstance{
         f.add(labelM);
         return f;
     }
+    private byte[] filetobyte(File file)
+    {
+        FileInputStream fileInputStream = null;
+        byte[] byteArray = new byte[(int) file.length()];
+        try
+        {
+            fileInputStream = new FileInputStream(file);
+            fileInputStream.read(byteArray);
+            fileInputStream.close();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("Error in file sth...");
+        }
+        return byteArray;
+    }
     public void fileTransferSelected()
     {
         JFrame f = makeWindow();
@@ -85,14 +101,15 @@ public class ClientFrameInstance{
                 {
                     dataOutputStream.writeUTF("sendingafile");
                     dataOutputStream.writeUTF("hello.png");
-                    BufferedReader reader = new BufferedReader(new FileReader("D:\\Project\\src\\hello.png"));
-                    //byte [] buffer = new byte[];
-                    String line;
-                    while ((line = reader.readLine()) != null)
-                    {
-                        dataOutputStream.writeUTF(line);
-                    }
-                    reader.close();
+                    File file = new File("D:\\Project\\src\\hello.png");
+                    byte[] byteArray = filetobyte(file);
+                    System.out.println(byteArray.length);
+                    dataOutputStream.writeUTF(String.valueOf(byteArray.length));
+                    for(int i = 0; i<byteArray.length; i++)
+                        dataOutputStream.write(byteArray);
+                    System.out.println("done");
+
+
                 }
                 catch (Exception exc)
                 {
@@ -115,7 +132,7 @@ public class ClientFrameInstance{
     {
         try {
             dataOutputStream.writeUTF("What do you wanna do?");
-            dataOutputStream.writeUTF("1. Chat \n 2. Send files\n");
+            dataOutputStream.writeUTF("1. Chat \n 2. Receive File\n 3. Send files");
             int numbcheck;
             numbcheck = Integer.valueOf(dataInputStream.readUTF());
             this.dataInputStream = dataInputStream;
